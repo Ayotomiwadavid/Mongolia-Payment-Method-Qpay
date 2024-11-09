@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require("body-parser");
 const axios = require('axios');
 const WebSocket = require('ws');
-const QPAY = require('@togtokh.dev/qpay');
 require('dotenv').config();
 
 const app = express();
