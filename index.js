@@ -144,7 +144,7 @@ app.post('/payment-notification', async (req, res) => {
 });
 
 // Set up server and WebSocket
-const PORT = 3000;
+const PORT = 8080;
 const server = app.listen(PORT, () => {
     console.log('Server is running on PORT ' + PORT);
 });
