@@ -39,7 +39,7 @@ function broadcastMessage(message) {
     });
 }
 
-let accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiI5OWNmYjFiMi0zMmNjLTRhNDMtOWNjZi02NWNhM2JjOTg0YWYiLCJzZXNzaW9uX2lkIjoiNXJLQTJxV3VsMTN3ZUFQRENBLUloeU12VEpQRXU0M3IiLCJpYXQiOjE3MzEwNzkzOTUsImV4cCI6MzQ2MjI0NTE5MH0.jM4mkaaN01jm-wmqvga3SWWQ8akPVNWL6IXGW8aoCcI';
+let accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiI1ZDJmYTc1YS1jMGI5LTRjNzItYjFmZC0zYjE2MGQ4NDVmZDAiLCJzZXNzaW9uX2lkIjoiTGoxQloyTjlORzNVeWRoUVNaNVFsVVUwaGtTWFhmUmkiLCJpYXQiOjE3MzIwODA5ODMsImV4cCI6MzQ2NDI0ODM2Nn0.GkW3vNpeGG_MHXpoShkGhmzOOpxr8vp_x8HuGAf71NY';
 
 // Function to request a new token
 // async function requestNewToken() {
@@ -90,7 +90,7 @@ app.post('/create-payment', async (req, res) => {
         invoice_description: invoiceDescription,
         invoice_code: invoiceCode,
         amount: amount,
-        callback_url: `{process.env.Base_URL}payment-notification?customerId=${senderInvoiceNo}`,
+        callback_url: `${process.env.Base_URL}payment-notification?customerId=${senderInvoiceNo}`,
         receiverData: {
             register: "UZ96021105",
             name: customerName,
@@ -101,7 +101,7 @@ app.post('/create-payment', async (req, res) => {
 
     try {
         // Send POST request to QPay API
-        const response = await axios.post(`https://merchant-sandbox.qpay.mn/v2/invoice`, payload, {
+        const response = await axios.post(`https://merchant.qpay.mn/v2/invoice`, payload, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${accessToken}`
