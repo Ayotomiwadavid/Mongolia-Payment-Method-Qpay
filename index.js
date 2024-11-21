@@ -101,7 +101,7 @@ app.post('/create-payment', async (req, res) => {
 
     try {
         // Send POST request to QPay API
-        const response = await axios.post(`https://merchant.qpay.mn/v2/invoice`, payload, {
+        const response = await axios.post(`https://merchant-sandbox.qpay.mn/v2/invoice`, payload, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${accessToken}`
