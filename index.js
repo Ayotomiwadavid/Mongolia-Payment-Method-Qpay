@@ -88,7 +88,7 @@ app.post('/create-payment', async (req, res) => {
         sender_invoice_no: senderInvoiceNo,
         invoice_receiver_code: invoiceReceiver,
         invoice_description: invoiceDescription,
-        invoice_code: "TEST_INVOICE",
+        invoice_code: "NAVCH_INVOICE",
         amount: 1,
         callback_url: `${process.env.Base_URL}payment-notification?customerId=${senderInvoiceNo}`,
         receiverData: {
@@ -101,7 +101,7 @@ app.post('/create-payment', async (req, res) => {
 
     try {
         // Send POST request to QPay API
-        const response = await axios.post(`https://merchant-sandbox.qpay.mn/v2/invoice`, payload, {
+        const response = await axios.post(`https://merchant.qpay.mn/v2/invoice`, payload, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${accessToken}`
