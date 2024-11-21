@@ -88,8 +88,8 @@ app.post('/create-payment', async (req, res) => {
         sender_invoice_no: senderInvoiceNo,
         invoice_receiver_code: invoiceReceiver,
         invoice_description: invoiceDescription,
-        invoice_code: "NAVCH_INVOICE",
-        amount: amount,
+        invoice_code: "TEST_INVOICE",
+        amount: 1,
         callback_url: `${process.env.Base_URL}payment-notification?customerId=${senderInvoiceNo}`,
         receiverData: {
             register: "UZ96021105",
