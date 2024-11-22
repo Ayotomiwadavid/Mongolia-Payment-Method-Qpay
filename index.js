@@ -40,6 +40,8 @@ wss.on('connection', (ws) => {
 function broadcastMessage(message) {
     console.log("Broadcasting message:", message);
     connectedClients.forEach(client => {
+        console.log("Broadcasting message to:", client.readyState);
+        client.send(JSON.stringify(message));
         if (client.readyState === WebSocket.OPEN) {
             client.send(JSON.stringify(message));
         }
