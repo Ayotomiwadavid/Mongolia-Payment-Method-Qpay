@@ -19,7 +19,7 @@ const wss = new WebSocket.Server({noServer: true});
 
 let connectedClients = [];
 
-let accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJmZDNiYzQ3ZC0xNjAwLTQwYzUtYWFhOC0zNTZmNDMzNmEyODQiLCJzZXNzaW9uX2lkIjoiMmFBU3d1c0hBWGtIZ3JMQl9uVHQtZDI4eE5RWnlKTTkiLCJpYXQiOjE3MzIyMzkwNzQsImV4cCI6MzQ2NDU2NDU0OH0.JSn0szkofW8eTropM3tade_0xkcCmKTCpLLK0NeJukQ";
+let accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJmZDNiYzQ3ZC0xNjAwLTQwYzUtYWFhOC0zNTZmNDMzNmEyODQiLCJzZXNzaW9uX2lkIjoid0x4ODdGTkVuWmJPd1h4NEtjN01PbzlnaEp4N2hnZVMiLCJpYXQiOjE3MzIyNDA3MTksImV4cCI6MzQ2NDU2NzgzOH0.0B9DEsuEdxrE8iNRrAzJf-5AWLUiEEiz0UkFKrzgyes";
 
 // Listen for WebSocket connections
 wss.on('connection', (ws) => {
