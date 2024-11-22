@@ -14,6 +14,12 @@ app.use(bodyParser.json());
 
 app.use(express.json());
 
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    console.log("Body:", req.body);
+    next();
+});
+
 // Prepare WebSocket server
 const wss = new WebSocket.Server({ noServer: true });
 
@@ -32,6 +38,7 @@ wss.on('connection', (ws) => {
 
 // Helper function to broadcast messages to all connected clients
 function broadcastMessage(message) {
+    console.log("Broadcasting message:", message);
     connectedClients.forEach(client => {
         if (client.readyState === WebSocket.OPEN) {
             client.send(JSON.stringify(message));
@@ -39,7 +46,7 @@ function broadcastMessage(message) {
     });
 }
 
-let accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiI1ZDJmYTc1YS1jMGI5LTRjNzItYjFmZC0zYjE2MGQ4NDVmZDAiLCJzZXNzaW9uX2lkIjoiTGoxQloyTjlORzNVeWRoUVNaNVFsVVUwaGtTWFhmUmkiLCJpYXQiOjE3MzIwODA5ODMsImV4cCI6MzQ2NDI0ODM2Nn0.GkW3vNpeGG_MHXpoShkGhmzOOpxr8vp_x8HuGAf71NY';
+let accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiI1ZDJmYTc1YS1jMGI5LTRjNzItYjFmZC0zYjE2MGQ4NDVmZDAiLCJzZXNzaW9uX2lkIjoiWFJYQ0VPZ1VpcHJsTTFLRkNCOE9DaXRVbEhobDlpWHgiLCJpYXQiOjE3MzIyNzEwNDUsImV4cCI6MzQ2NDYyODQ5MH0.MlOqKHrQgv4-vDA6PZpmV_WTy3ZScyyYYmfZr_ZV6TA';
 
 // Function to request a new token
 // async function requestNewToken() {
@@ -75,9 +82,9 @@ let accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiI1ZDJm
 // Invoice creation endpoint
 app.post('/create-payment', async (req, res) => {
 
-    const {senderInvoiceNo, invoiceReceiver, invoiceDescription, invoiceCode, amount, customerName, customerEmail, PhoneNumber} = req.body
+    const {senderInvoiceNo, invoiceReceiver, invoiceDescription, amount, customerName, customerEmail, PhoneNumber} = req.body
 
-    if (!senderInvoiceNo || !invoiceReceiver || !invoiceDescription || !invoiceCode || !amount || !customerName || !customerEmail || !PhoneNumber) {
+    if (!senderInvoiceNo || !invoiceReceiver || !invoiceDescription || !amount || !customerName || !customerEmail || !PhoneNumber) {
         return res.status(400).send({
             error: 'Please include all parameters',
             message: "senderInvoiceNo, invoiceReceiver, invoiceDescription, invoiceCode, amount, customerName, customerEmail, PhoneNumber are required"
@@ -109,6 +116,7 @@ app.post('/create-payment', async (req, res) => {
         });
 
         console.log(response.data);
+        
        return res.json({ response: response.data,
             message: 'Payment Initialized'
          });
