@@ -19,7 +19,7 @@ const wss = new WebSocket.Server({noServer: true});
 
 let connectedClients = [];
 
-let accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJmZDNiYzQ3ZC0xNjAwLTQwYzUtYWFhOC0zNTZmNDMzNmEyODQiLCJzZXNzaW9uX2lkIjoid0x4ODdGTkVuWmJPd1h4NEtjN01PbzlnaEp4N2hnZVMiLCJpYXQiOjE3MzIyNDA3MTksImV4cCI6MzQ2NDU2NzgzOH0.0B9DEsuEdxrE8iNRrAzJf-5AWLUiEEiz0UkFKrzgyes";
+let accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiI5OWNmYjFiMi0zMmNjLTRhNDMtOWNjZi02NWNhM2JjOTg0YWYiLCJzZXNzaW9uX2lkIjoiM2xvTERpOGxmWjJiSnd3UXZfMXItcVR2bkZhbWZBMy0iLCJpYXQiOjE3MzIyNDEzNjMsImV4cCI6MzQ2NDU2OTEyNn0.RQuA8obYz0b6tSpxcrDADsxpCEs9tTF2g2AFneVTjaQ";
 
 // Listen for WebSocket connections
 wss.on('connection', (ws) => {
@@ -48,7 +48,7 @@ async function requestNewToken() {
     const encodedAuth = Buffer.from(authString).toString('base64');
 
     try {
-        const response = await axios.post('https://merchant.qpay.mn/v2/auth/token', {}, {
+        const response = await axios.post('https://merchant-sandbox.qpay.mn/v2/auth/token', {}, {
             headers: {
                 'Authorization': `Basic ${encodedAuth}`
             }
@@ -110,7 +110,7 @@ app.post('/create-payment', async (req, res) => {
 
     try {
         // Send POST request to QPay API
-        const response = await axios.post(`https://merchant.qpay.mn/v2/invoice`, payload, {
+        const response = await axios.post(`https://merchant-sandbox.qpay.mn/v2/invoice`, payload, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${accessToken}`
