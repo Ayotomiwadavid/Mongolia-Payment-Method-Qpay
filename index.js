@@ -81,7 +81,7 @@ async function requestNewToken() {
 
 // Invoice creation endpoint
 app.post('/create-payment', async (req, res) => {
-
+    broadcastMessage({ message: 'Payment creation requested' });
     const {senderInvoiceNo, invoiceReceiver, invoiceDescription, amount, customerName, customerEmail, PhoneNumber} = req.body
 
     if (!senderInvoiceNo || !invoiceReceiver || !invoiceDescription || !amount || !customerName || !customerEmail || !PhoneNumber) {
