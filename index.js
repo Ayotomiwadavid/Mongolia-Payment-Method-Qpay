@@ -39,28 +39,28 @@ function broadcastMessage(message) {
     });
 }
 
-let accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiI1ZDJmYTc1YS1jMGI5LTRjNzItYjFmZC0zYjE2MGQ4NDVmZDAiLCJzZXNzaW9uX2lkIjoiTGoxQloyTjlORzNVeWRoUVNaNVFsVVUwaGtTWFhmUmkiLCJpYXQiOjE3MzIwODA5ODMsImV4cCI6MzQ2NDI0ODM2Nn0.GkW3vNpeGG_MHXpoShkGhmzOOpxr8vp_x8HuGAf71NY';
+let accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiI1ZDJmYTc1YS1jMGI5LTRjNzItYjFmZC0zYjE2MGQ4NDVmZDAiLCJzZXNzaW9uX2lkIjoiWFJYQ0VPZ1VpcHJsTTFLRkNCOE9DaXRVbEhobDlpWHgiLCJpYXQiOjE3MzIyNzEwNDUsImV4cCI6MzQ2NDYyODQ5MH0.MlOqKHrQgv4-vDA6PZpmV_WTy3ZScyyYYmfZr_ZV6TA';
 
 // Function to request a new token
-// async function requestNewToken() {
-//     const authString = `${process.env.QPAY_USERNAME}:${process.env.QPAY_PASSWORD}`;
-//     const encodedAuth = Buffer.from(authString).toString('base64');
-    
-//     try {
-//         const response = await axios.post('https://merchant.qpay.mn/v2/auth/token', {}, {
-//             headers: {
-//                 'Authorization': `Basic ${encodedAuth}`
-//             }
-//         });
-        
-//         accessToken = response.data.access_token;
-//         tokenExpiry = Date.now() + (response.data.expires_in * 1000); // Convert to milliseconds
-//         console.log('New token generated:', accessToken);
-        
-//     } catch (error) {
-//         console.error('Error requesting new token:', error.response?.data || error.message);
-//     }
-// }
+async function requestNewToken() {
+    const authString = `${process.env.QPAY_USERNAME}:${process.env.QPAY_PASSWORD}`;
+    const encodedAuth = Buffer.from(authString).toString('base64');
+//
+    try {
+        const response = await axios.post('https://merchant.qpay.mn/v2/auth/token', {}, {
+            headers: {
+                'Authorization': `Basic ${encodedAuth}`
+            }
+        });
+//
+        accessToken = response.data.access_token;
+        tokenExpiry = Date.now() + (response.data.expires_in * 1000); // Convert to milliseconds
+        console.log('New token generated:', accessToken);
+//
+    } catch (error) {
+        console.error('Error requesting new token:', error.response?.data || error.message);
+    }
+}
 
 
 
