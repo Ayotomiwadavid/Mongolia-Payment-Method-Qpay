@@ -42,26 +42,26 @@ function broadcastMessage(message) {
 }
 
 // Function to request a new token
-// async function requestNewToken() {
-//     const authString = `${process.env.QPAY_USERNAME}:${process.env.QPAY_PASSWORD}`;
+async function requestNewToken() {
+    const authString = `${process.env.QPAY_USERNAME}:${process.env.QPAY_PASSWORD}`;
 
-// const encodedAuth = Buffer.from(authString).toString('base64');
-//
-//     try {
-//         const response = await axios.post('https://merchant.qpay.mn/v2/auth/token', {}, {
-//             headers: {
-//                 'Authorization': `Basic ${encodedAuth}`
-//             }
-//         });
+    const encodedAuth = Buffer.from(authString).toString('base64');
 
-// accessToken = response.data.access_token;
-// tokenExpiry = Date.now() + (response.data.expires_in * 1000); // Convert to milliseconds
-// console.log('New token generated:', accessToken);
+    try {
+        const response = await axios.post('https://merchant.qpay.mn/v2/auth/token', {}, {
+            headers: {
+                'Authorization': `Basic ${encodedAuth}`
+            }
+        });
 
-// } catch (error) {
-//     console.error('Error requesting new token:', error.response?.data || error.message);
-// }
-// }
+        accessToken = response.data.access_token;
+        tokenExpiry = Date.now() + (response.data.expires_in * 1000); // Convert to milliseconds
+        console.log('New token generated:', accessToken);
+
+    } catch (error) {
+        console.error('Error requesting new token:', error.response?.data || error.message);
+    }
+}
 
 
 // Middleware function to check token validity before each API request
