@@ -7,7 +7,7 @@ require('dotenv').config();
 const app = express();
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 
 // parse application/json
 app.use(bodyParser.json());
@@ -15,9 +15,11 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 // Prepare WebSocket server
-const wss = new WebSocket.Server({ noServer: true });
+const wss = new WebSocket.Server({noServer: true});
 
 let connectedClients = [];
+
+let accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJmZDNiYzQ3ZC0xNjAwLTQwYzUtYWFhOC0zNTZmNDMzNmEyODQiLCJzZXNzaW9uX2lkIjoiMmFBU3d1c0hBWGtIZ3JMQl9uVHQtZDI4eE5RWnlKTTkiLCJpYXQiOjE3MzIyMzkwNzQsImV4cCI6MzQ2NDU2NDU0OH0.JSn0szkofW8eTropM3tade_0xkcCmKTCpLLK0NeJukQ";
 
 // Listen for WebSocket connections
 wss.on('connection', (ws) => {
@@ -39,29 +41,27 @@ function broadcastMessage(message) {
     });
 }
 
-let accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiI1ZDJmYTc1YS1jMGI5LTRjNzItYjFmZC0zYjE2MGQ4NDVmZDAiLCJzZXNzaW9uX2lkIjoiTGoxQloyTjlORzNVeWRoUVNaNVFsVVUwaGtTWFhmUmkiLCJpYXQiOjE3MzIwODA5ODMsImV4cCI6MzQ2NDI0ODM2Nn0.GkW3vNpeGG_MHXpoShkGhmzOOpxr8vp_x8HuGAf71NY';
-
 // Function to request a new token
 // async function requestNewToken() {
 //     const authString = `${process.env.QPAY_USERNAME}:${process.env.QPAY_PASSWORD}`;
-//     const encodedAuth = Buffer.from(authString).toString('base64');
-    
+
+// const encodedAuth = Buffer.from(authString).toString('base64');
+//
 //     try {
 //         const response = await axios.post('https://merchant.qpay.mn/v2/auth/token', {}, {
 //             headers: {
 //                 'Authorization': `Basic ${encodedAuth}`
 //             }
 //         });
-        
-//         accessToken = response.data.access_token;
-//         tokenExpiry = Date.now() + (response.data.expires_in * 1000); // Convert to milliseconds
-//         console.log('New token generated:', accessToken);
-        
-//     } catch (error) {
-//         console.error('Error requesting new token:', error.response?.data || error.message);
-//     }
-// }
 
+// accessToken = response.data.access_token;
+// tokenExpiry = Date.now() + (response.data.expires_in * 1000); // Convert to milliseconds
+// console.log('New token generated:', accessToken);
+
+// } catch (error) {
+//     console.error('Error requesting new token:', error.response?.data || error.message);
+// }
+// }
 
 
 // Middleware function to check token validity before each API request
@@ -75,7 +75,16 @@ let accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiI1ZDJm
 // Invoice creation endpoint
 app.post('/create-payment', async (req, res) => {
 
-    const {senderInvoiceNo, invoiceReceiver, invoiceDescription, invoiceCode, amount, customerName, customerEmail, PhoneNumber} = req.body
+    const {
+        senderInvoiceNo,
+        invoiceReceiver,
+        invoiceDescription,
+        invoiceCode,
+        amount,
+        customerName,
+        customerEmail,
+        PhoneNumber
+    } = req.body
 
     if (!senderInvoiceNo || !invoiceReceiver || !invoiceDescription || !invoiceCode || !amount || !customerName || !customerEmail || !PhoneNumber) {
         return res.status(400).send({
@@ -88,7 +97,7 @@ app.post('/create-payment', async (req, res) => {
         sender_invoice_no: senderInvoiceNo,
         invoice_receiver_code: invoiceReceiver,
         invoice_description: invoiceDescription,
-        invoice_code: "NAVCH_INVOICE",
+        invoice_code: "TEST_INVOICE",
         amount: amount,
         callback_url: `${process.env.Base_URL}payment-notification?customerId=${senderInvoiceNo}`,
         receiverData: {
@@ -109,13 +118,14 @@ app.post('/create-payment', async (req, res) => {
         });
 
         console.log(response.data);
-       return res.json({ response: response.data,
+        return res.json({
+            response: response.data,
             message: 'Payment Initialized'
-         });
+        });
 
     } catch (error) {
         console.error('Error creating payment:', error);
-        res.status(500).json({ error: 'Payment creation failed', message: error.message });
+        res.status(500).json({error: 'Payment creation failed', message: error.message});
     }
 });
 
@@ -136,9 +146,9 @@ app.post('/payment-notification', async (req, res) => {
         });
 
         // Respond to QPay to confirm notification receipt
-        return res.status(200).json({ success: true });
+        return res.status(200).json({success: true});
     } else {
-        return res.status(400).json({ error: "Customer ID missing" });
+        return res.status(400).json({error: "Customer ID missing"});
     }
 });
 
@@ -154,3 +164,5 @@ server.on('upgrade', (request, socket, head) => {
         wss.emit('connection', ws, request);
     });
 });
+
+requestNewToken();
