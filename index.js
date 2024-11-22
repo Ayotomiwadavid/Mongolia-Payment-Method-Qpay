@@ -123,7 +123,7 @@ app.post('/create-payment', async (req, res) => {
 app.post('/payment-notification', async (req, res) => {
     const customerId = req.query.customerId || req.body.sender_invoice_no;
     const paymentStatus = req.body.payment_status;
-
+    console.log("Request bodyyyyy", req.body);
     if (customerId) {
         console.log(`Payment notification received for customer ID: ${customerId}`);
         console.log(`Payment status: ${paymentStatus}`);
