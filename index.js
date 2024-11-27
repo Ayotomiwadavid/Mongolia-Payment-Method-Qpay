@@ -48,7 +48,7 @@ function broadcastMessage(message) {
     });
 }
 
-let accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiI1ZDJmYTc1YS1jMGI5LTRjNzItYjFmZC0zYjE2MGQ4NDVmZDAiLCJzZXNzaW9uX2lkIjoiWFJYQ0VPZ1VpcHJsTTFLRkNCOE9DaXRVbEhobDlpWHgiLCJpYXQiOjE3MzIyNzEwNDUsImV4cCI6MzQ2NDYyODQ5MH0.MlOqKHrQgv4-vDA6PZpmV_WTy3ZScyyYYmfZr_ZV6TA';
+let accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiI1ZDJmYTc1YS1jMGI5LTRjNzItYjFmZC0zYjE2MGQ4NDVmZDAiLCJzZXNzaW9uX2lkIjoiM1NmekhwbUpLNXZYQTcxMkllTVN2NW0tb0NkOXRmMVciLCJpYXQiOjE3MzI3MDc3NTAsImV4cCI6MzQ2NTUwMTkwMH0.xR84Zs_W7AM7QXHEh2R8RijLlk4_NcluGQJOgbuO0Fs';
 
 // Function to request a new token
 async function requestNewToken() {
