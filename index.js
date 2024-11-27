@@ -63,8 +63,9 @@ async function requestNewToken() {
         });
 //
         accessToken = response.data.access_token;
-        tokenExpiry = Date.now() + (response.data.expires_in * 1000); // Convert to milliseconds
+        let tokenExpiry = new Date(Date.now() + response.data.expires_in); // Convert to milliseconds
         console.log('New token generated:', accessToken);
+        console.log('New token generated:', tokenExpiry);
 //
     } catch (error) {
         console.error('Error requesting new token:', error.response?.data || error.message);
@@ -130,7 +131,7 @@ app.post('/create-payment', async (req, res) => {
 });
 
 // Payment notification endpoint
-app.post('/payment-notification', async (req, res) => {
+app.get('/payment-notification', async (req, res) => {
     const customerId = req.query.customerId || req.body.sender_invoice_no;
     const paymentStatus = req.body.payment_status;
     console.log("Request bodyy", req.body);
